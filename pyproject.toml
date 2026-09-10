@@ -31,6 +31,7 @@ testpaths = ["tests"]
 only-include = [
   "src/forit_mcp_gateway",
   "tests/test_gateway.py",
+  "tests/test_login_branding.py",
   "examples/catalog_api.py",
   "examples/check_client.py",
   "examples/gateway.json",
