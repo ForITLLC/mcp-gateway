@@ -1,0 +1,13 @@
+{
+  "name": "ForIT MCP Gateway",
+  "auth": {"mode": "bearer", "tokenEnv": "MCP_GATEWAY_TOKEN"},
+  "refreshSeconds": 120,
+  "sources": [{
+    "namespace": "catalog",
+    "baseUrl": "http://127.0.0.1:9000",
+    "specUrl": "http://127.0.0.1:9000/openapi.json",
+    "allowInsecureHttp": true,
+    "readOnly": true,
+    "allowedOperations": ["list_items", "get_item"]
+  }]
+}
