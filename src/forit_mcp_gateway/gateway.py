@@ -88,7 +88,12 @@ def create_gateway(config: Config, *, transport=None):
     ).decode()
     # FastMCP 3.2.3 callback error pages omit the server icon metadata.
     # One gateway per process also brands that fallback with the configured logo.
-    ui.FASTMCP_LOGO_URL = logo
+    from .login_branding import install_login_branding
+    install_login_branding(
+        name=config.name,
+        logo_url=config.logoUrl or "https://www.forit.io/images/forit-hex-only.png",
+        support_email=config.supportEmail,
+    )
 
     async def refresh_all():
         await asyncio.gather(*(state.refresh() for state in states))

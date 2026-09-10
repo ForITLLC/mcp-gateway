@@ -79,6 +79,7 @@ class Auth(Model):
 class Config(Model):
     name: str = "ForIT MCP Gateway"
     logoUrl: str | None = None
+    supportEmail: str = "help@forit.io"
     auth: Auth = Field(default_factory=Auth)
     refreshSeconds: int = Field(default=120, ge=10, le=86400)
     sources: list[Source] = Field(min_length=1)

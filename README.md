@@ -9,7 +9,7 @@ This is the public gateway application, released with a fresh history and a fict
 - Combines OpenAPI 3 services under separate tool namespaces.
 - Defaults to GET/HEAD operations; writes require an explicit operation allowlist.
 - Authenticates service clients with a bearer token, or interactive clients through Microsoft Entra OAuth.
-- Uses the ForIT mark throughout OAuth login, including callback error pages; supports your own name and HTTPS logo.
+- Provides a complete for-Common-style login flow: navy gradient, white ForIT mark, Microsoft sign-in button, consent details, branded errors, and support contact. Configure your own name, HTTPS `logoUrl`, and `supportEmail`.
 - Refreshes schemas without restarting, using ETags and content hashes. Failed refreshes retain the last working tools and mark readiness degraded.
 - Keeps configured upstream credential headers fixed, disables redirects, and confines requests to the configured origin and API base path.
 
