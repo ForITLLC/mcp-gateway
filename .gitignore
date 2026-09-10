@@ -8,3 +8,19 @@ build/
 .env
 .env.*
 gateway.local.json
+
+# Real client configuration belongs outside this public checkout.
+clients/
+config/
+configs/
+local/
+private/
+manifests/
+infra/
+*.local.*
+*.pem
+*.key
+*.p12
+*.pfx
+*.sqlite*
+*.db

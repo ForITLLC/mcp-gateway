@@ -6,3 +6,17 @@ __pycache__
 .pytest_cache
 dist
 build
+clients
+config
+configs
+local
+private
+manifests
+infra
+*.local.*
+*.pem
+*.key
+*.p12
+*.pfx
+*.sqlite*
+*.db

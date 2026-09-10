@@ -68,6 +68,22 @@ Use an administrator-owned JSON file:
 
 Set `CATALOG_API_KEY` and `MCP_GATEWAY_TOKEN` through your secret manager or environment. Missing secrets fail startup. Bearer tokens must have at least 32 characters; generate them randomly. Bearer mode represents one service identity and has no user login, expiration, or individual revocation. Rotate the environment token and restart to revoke it.
 
+### Keep client configuration local
+
+Keep all real client configuration in one directory **outside the public repository**:
+
+```sh
+install -d -m 700 "$HOME/.config/forit-mcp-gateway/clients"
+# Save your administrator configuration as clients/<client-name>.json there.
+forit-mcp-gateway --config "$HOME/.config/forit-mcp-gateway/clients/<client-name>.json"
+```
+
+Use one JSON file per client and environment, containing environment-variable references rather than secret values. Protect each file with mode `600`. Keep credentials in your secret manager or process environment. The CLI does not automatically load `.env` files. For containers, mount the selected JSON file read-only at `/config/gateway.json`; supply secrets at runtime.
+
+Existing production configurations may instead remain in a dedicated private deployment repository as their single source of truth. Do not copy those files or that repository's history into this public repository. The only public API configuration is `examples/gateway.json`, which uses the fictional local catalog.
+
+Local configuration folders and credential files are excluded from Git, Docker contexts, and package builds. CI rejects tracked deployment folders and unreviewed configuration files, including files added with `git add -f`. These controls support review; they do not replace checking file contents for customer data or secrets before publishing.
+
 `allowedOperations` matches OpenAPI `operationId` values. Omitting it exposes all GET/HEAD operations; an empty list exposes none. Set `readOnly: false` **and** supply a nonempty allowlist to expose writes. An operation changing from GET to POST will disappear under read-only configuration. HTTP method filtering cannot guarantee an upstream GET has no side effects.
 
 Specifications must be JSON OpenAPI 3 documents with unique operation IDs. Embedded `servers` entries are removed; the configured `baseUrl` controls routing. Only references into local `#/components/` are accepted; external references and path-item references are rejected. Spec and API URLs must share an origin. Redirects are not followed. Schemas and configuration must come from trusted administrators; this is not a sandbox for arbitrary API definitions.

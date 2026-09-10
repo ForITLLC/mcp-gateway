@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "forit-mcp-gateway"
-version = "0.1.0"
+version = "0.1.1"
 description = "A branded, authenticated OpenAPI-to-MCP gateway maintained by ForIT"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -25,3 +25,32 @@ Issues = "https://github.com/ForITLLC/mcp-gateway/issues"
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
 testpaths = ["tests"]
+
+# Enumerate the public release surface; local deployment files cannot enter an sdist.
+[tool.hatch.build.targets.sdist]
+only-include = [
+  "src/forit_mcp_gateway",
+  "tests/test_gateway.py",
+  "examples/catalog_api.py",
+  "examples/check_client.py",
+  "examples/gateway.json",
+  "scripts/check_public_files.py",
+  "pyproject.toml",
+  "README.md",
+  "LICENSE",
+  "NOTICE",
+  "THIRD_PARTY_NOTICES.md",
+  "CONTRIBUTING.md",
+  "SECURITY.md",
+  "Dockerfile",
+  ".dockerignore",
+]
+
+[tool.hatch.build]
+exclude = [
+  "**/clients/**", "**/config/**", "**/configs/**", "**/local/**",
+  "**/private/**", "**/manifests/**", "**/infra/**",
+  "**/.env*", "**/*.local.*", "**/*.pem", "**/*.key",
+  "**/*.p12", "**/*.pfx", "**/*.sqlite*", "**/*.db",
+  "**/__pycache__/**", "**/*.pyc",
+]
